@@ -47,7 +47,7 @@ Here is an example of implementation:
 ```ruby
 # Item model
 
-def json_api_attr (access_level = nil)
+def json_api_attrs (access_level = nil)
   attrs = []
   attrs += %w(name description price buyoutable item_type category) if %i(user admin).include?access_level
   attrs += %w(real_price in_stock) if access_level == :admin
