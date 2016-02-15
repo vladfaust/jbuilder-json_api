@@ -62,6 +62,10 @@ end
 def json_api_relations (options = {})
   %w(category orders)
 end
+
+def json_api_meta (options = {})
+  { foo: :bar }
+end
 ```
 **Note** that the gem will call methods pulled via `json_api_relations and _attrs`. As for the above example, methods like `:name`, `:description`, `:real_price`, `:orders` will be invoked for an Item instance. And yes, relations are fetched properly and recursively if the object responds to `orders`.
 
