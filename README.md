@@ -1,4 +1,4 @@
-# Jbuilder::JsonApi
+# Jbuilder::JsonApi | [![Build Status](https://travis-ci.org/vladfaust/jbuilder-json_api.svg?branch=master)](https://travis-ci.org/vladfaust/jbuilder-json_api) [![Code Climate](https://codeclimate.com/github/vladfaust/jbuilder-json_api/badges/gpa.svg)](https://codeclimate.com/github/vladfaust/jbuilder-json_api) [![Test Coverage](https://codeclimate.com/github/vladfaust/jbuilder-json_api/badges/coverage.svg)](https://codeclimate.com/github/vladfaust/jbuilder-json_api/coverage)
 
 Adds a `json.api_format!(resources)` method to quickly represent a resource or collection in a valid [JSON API](http://jsonapi.org/) format without any new superclasses or weird setups. Set'n'go! :rocket:
 
