@@ -1,10 +1,10 @@
 # Jbuilder::JsonApi
 
-Adds a `json.api_format!(resources)` method to quickly represent a resource or collection in a valid JSON API format without any new superclasses or weird setups. Set'n'go! :rocket:
+Adds a `json.api_format!(resources)` method to quickly represent a resource or collection in a valid [JSON API](http://jsonapi.org/) format without any new superclasses or weird setups. Set'n'go! :rocket:
 
 ## Motivation
 
-Official [jsonapi.org](http://jsonapi.org/) [implementations page](http://jsonapi.org/implementations/#server-libraries-ruby) shows us a variety of different serializers and other heavy-weight stuff. I love [Jbuilder](https://github.com/rails/jbuilder), it allows to format json responses with ease. Therefore I wanted to connect Jbuilder and JsonApi.org!
+Official JSON API [implementations page](http://jsonapi.org/implementations/#server-libraries-ruby) shows us a variety of different serializers and other heavy-weight stuff. I' in love with [Jbuilder](https://github.com/rails/jbuilder), as it allows to format json responses with ease. Therefore I wanted to connect Jbuilder and JsonApi.org specs.
 
 I'd like to notice that there already is one gem called [jbuilder-jsonapi](https://github.com/csexton/jbuilder-jsonapi) by [csexton](https://github.com/csexton), but it adds a links helper only. It's not enough for me! :facepunch:
 
@@ -41,7 +41,7 @@ respond_to do |f|
     f.html { render nothing: true, status: :bad_request }
 end
 ```
-Each resource instance, as well as included one, will be invoked with `json_api_attrs` & `json_api_relations` methods. These methods **MAY** be implemented within each model. `api_format!` method will try to get an object's permitted (**you are free do define authentication logic yourself!**) attributes and relations via those two methods.
+Each resource instance, as well as the included one, will be invoked with `json_api_attrs` & `json_api_relations` methods. These methods **MAY** be implemented within each model. `api_format!` method will try to get an object's permitted (**you are free do define authentication logic yourself!**) attributes and relations via those two methods.
 
 Here is an example of implementation:
 ```ruby
@@ -58,7 +58,7 @@ def json_api_relations (access_level = nil)
   %w(category orders)
 end
 ```
-**Note** that the gem will call methods pulled with `json_api_relations and _attrs`. As for the above example, methods like `:name`, `:description`, `:orders` will be invoked for an Item instance. And yes, relations are fetched properly if an objects responds to `orders`.
+**Note** that the gem will call methods pulled with `json_api_relations and _attrs`. As for the above example, methods like `:name`, `:description`, `:orders` will be invoked for an Item instance. And yes, relations are fetched properly if an object responds to `orders`.
 
 ## Development
 
