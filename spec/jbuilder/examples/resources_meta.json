@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "copyright": "Vlad Faust",
+    "year": "2016",
+    "joke": {
+      "title": "Not funny at all",
+      "body": "A SQL query walks up to two tables in a restaurant and asks: \"Mind if I join you?\""
+    }
+  },
+  "data": [
+    {
+      "type": "post",
+      "id": 1,
+      "attributes": {
+        "id": 1,
+        "title": "Title for post #1"
+      },
+      "relationships": {
+        "author": {
+          "data": [
+            {
+              "type": "user",
+              "id": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "post",
+      "id": 2,
+      "attributes": {
+        "id": 2,
+        "title": "Title for post #2"
+      },
+      "relationships": {
+        "author": {
+          "data": [
+            {
+              "type": "user",
+              "id": 4
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "user",
+      "id": 1,
+      "attributes": {
+        "id": 1,
+        "name": "Name for user #1"
+      }
+    },
+    {
+      "type": "user",
+      "id": 4,
+      "attributes": {
+        "id": 4,
+        "name": "Name for user #4"
+      }
+    }
+  ]
+}

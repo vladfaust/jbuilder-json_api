@@ -1,0 +1,32 @@
+{
+  "errors": [
+    {
+      "id": 1,
+      "status": 404,
+      "detail": "The requested resource cannot be found.",
+      "code": 112,
+      "title": "Not found",
+      "source": {
+        "pointer": null,
+        "paramater": null
+      },
+      "links": {
+        "about": null
+      }
+    },
+    {
+      "id": 2,
+      "status": null,
+      "detail": null,
+      "code": null,
+      "title": "Another error",
+      "source": {
+        "pointer": null,
+        "paramater": null
+      },
+      "links": {
+        "about": null
+      }
+    }
+  ]
+}
