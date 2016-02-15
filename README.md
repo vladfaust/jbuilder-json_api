@@ -8,7 +8,7 @@ Official JSON API [implementations page](http://jsonapi.org/implementations/#ser
 
 I'd like to notice that there already is one gem called [jbuilder-jsonapi](https://github.com/csexton/jbuilder-jsonapi) by [csexton](https://github.com/csexton), but it adds a links helper only. It's not enough for me! :facepunch:
 
-As a result, I've created a **very** lightweight & flexible solution - all you need is Jbuilder and this gem. Then you should delete everything within your `*.json.jbuilder` files and replace it with below recommendations (just one line! :flushed:). After you are free to customize parsed attributes and relationships with two tiny methods.
+As a result, I've created a **very** lightweight & flexible solution - all you need is Jbuilder and this gem. Then you should delete everything within your `*.json.jbuilder` files and replace it with below recommendations (just one line! :flushed:). After you are free to customize parsed attributes and relationships with three tiny methods.
 
 ## Installation
 
@@ -31,10 +31,13 @@ Or install it yourself as:
 Replace any content within any `*.json.jbuilder` file with the code below:
 ```ruby
 # Common example
-json.api_format! @resources, @errors, meta: @meta, access_level: @user_access_level
+json.api_format! @resources, @errors, meta, options
 
-# Articles w/o meta or access levels example
-json.api_format! @articles, @errors
+# Items example
+json.api_format! @items, @errors, nil, access_level: :admin
+
+# A simple items example
+json.api_format! @items
 ```
 You can also render formatted JSON straight from controller actions:
 ```ruby
@@ -43,24 +46,24 @@ respond_to do |f|
     f.html { render nothing: true, status: :bad_request }
 end
 ```
-Each resource instance, as well as the included one, will be invoked with `json_api_attrs` & `json_api_relations` methods. These methods **MAY** be implemented within each model. `api_format!` method will try to get an object's permitted (**you are free do define authentication logic yourself!**) attributes and relations via those two methods.
+Each resource instance, as well as the included one, will be invoked with `json_api_attrs (options)`, `json_api_relations (options)` & `json_api_meta (options)` methods. These methods **MAY** be implemented within each model. `api_format!` method will try to get an object's permitted attributes (**remember, you are free do define authentication logic yourself!**) and relations and meta information via those three methods.
 
 Here is an example of implementation:
 ```ruby
-# Item model
+# Inside Item model
 
-def json_api_attrs (access_level = nil)
+def json_api_attrs (options = {})
   attrs = []
-  attrs += %w(name description price buyoutable item_type category) if %i(user admin).include?access_level
-  attrs += %w(real_price in_stock) if access_level == :admin
+  attrs += %w(name description price buyoutable item_type category) if %i(user admin).include?options[:access_level]
+  attrs += %w(real_price in_stock) if options[:access_level] == :admin
   attrs
 end
 
-def json_api_relations (access_level = nil)
+def json_api_relations (options = {})
   %w(category orders)
 end
 ```
-**Note** that the gem will call methods pulled with `json_api_relations and _attrs`. As for the above example, methods like `:name`, `:description`, `:orders` will be invoked for an Item instance. And yes, relations are fetched properly if an object responds to `orders`.
+**Note** that the gem will call methods pulled via `json_api_relations and _attrs`. As for the above example, methods like `:name`, `:description`, `:real_price`, `:orders` will be invoked for an Item instance. And yes, relations are fetched properly and recursively if the object responds to `orders`.
 
 ## Development
 
@@ -75,5 +78,17 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/vladf
 ## ToDo
 
 - [ ] Maybe add `Content-Type: application/vnd.api+json`. This spec is ignored right now :smirk:
-- [ ] Add links tests
+- [ ] Add links tests and improve them. Links now work only within views (where `@context` is present).
 - [ ] Somehow implement `[fields]` parameter
+
+## Versions
+
+#### 0.0.1 -> 1.0.0
+
+**Breaking:**
+- [x] Now any value can be forwarded to resources' methods via last `options` argument.
+- [x] Added third argument `meta`, which is used to show meta information in the context of request
+
+**Not breaking:**
+- [x] Added support for `json_api_meta (options)` method.
+- [x] Any internal error is now properly handled.

@@ -15,26 +15,15 @@
       "code": 112,
       "title": "Not found",
       "source": {
-        "pointer": null,
-        "paramater": null
+        "pointer": "http://posts_path"
       },
       "links": {
-        "about": null
+        "about": "https://en.wikipedia.org/wiki/HTTP_404"
       }
     },
     {
       "id": 2,
-      "status": null,
-      "detail": null,
-      "code": null,
-      "title": "Another error",
-      "source": {
-        "pointer": null,
-        "paramater": null
-      },
-      "links": {
-        "about": null
-      }
+      "title": "Another error"
     }
   ]
 }

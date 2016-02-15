@@ -10,17 +10,16 @@ describe JsonAPI do
 
     def check (json, name)
       if DEBUG
-        File.open("spec/jbuilder/examples/#{ name }.json", 'w') { |file| file.write JSON.pretty_unparse(json) }
+        File.write "spec/jbuilder/examples/#{ name }.json", JSON.pretty_unparse(json)
       else
-        expect(JSON.pretty_unparse(json)).to eq File.open("spec/jbuilder/examples/#{ name }.json", 'r').read
+        expect(JSON.pretty_unparse(json)).to eq File.read("spec/jbuilder/examples/#{ name }.json")
       end
     end
 
-    before :each do
-      @resources = []
-      2.times { @resources << (create :post, :with_author, :with_comments) }
+    let (:resources) { create_list :post, 2, :with_author, :with_comments }
 
-      @errors = [
+    let (:errors) do
+      [
           {
               id: 1,       # Internal ID
               status: 404, # HTTP status
@@ -39,54 +38,62 @@ describe JsonAPI do
               title: 'Another error'
           }
       ]
+    end
 
-      @meta = {
+    let (:meta) do
+      {
           copyright: 'Vlad Faust',
           year: '2016',
           joke: {
               title: 'Not funny at all',
               body: 'A SQL query walks up to two tables in a restaurant and asks: "Mind if I join you?"'
-          }}
+          }
+      }
     end
 
     it 'fetches resources' do
-      json = JSON.parse(Jbuilder.new.api_format!(@resources).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(resources).target!)
       check json, 'resources'
     end
 
     it 'fetches resources w/ admin rights' do
-      json = JSON.parse(Jbuilder.new.api_format!(@resources, nil, access_level: :admin).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(resources, nil, nil, access_lvl: :admin).target!)
       check json, 'resources_admin'
     end
 
     it 'fetches resources w/ errors' do
-      json = JSON.parse(Jbuilder.new.api_format!(@resources, @errors).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(resources, errors).target!)
       check json, 'resources_errors'
     end
 
     it 'fetches errors only' do
-      json = JSON.parse(Jbuilder.new.api_format!(nil, @errors).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(nil, errors).target!)
       check json, 'errors'
     end
 
     it 'fetches meta only' do
-      json = JSON.parse(Jbuilder.new.api_format!(nil, nil, meta: @meta).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(nil, nil, meta).target!)
       check json, 'meta'
     end
 
     it 'fetches errors w/ meta' do
-      json = JSON.parse(Jbuilder.new.api_format!(nil, @errors, meta: @meta).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(nil, errors, meta).target!)
       check json, 'errors_meta'
     end
 
     it 'fetches resources w/ meta' do
-      json = JSON.parse(Jbuilder.new.api_format!(@resources, nil, meta: @meta).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(resources, nil, meta).target!)
       check json, 'resources_meta'
     end
 
     it 'fetches resources w/ errors & meta' do
-      json = JSON.parse(Jbuilder.new.api_format!(@resources, @errors, meta: @meta).target!)
+      json = JSON.parse(Jbuilder.new.api_format!(resources, errors, meta).target!)
       check json, 'resources_errors_meta'
+    end
+
+    it 'fetches internal errors' do
+      json = JSON.parse(Jbuilder.new.api_format!(42, nil, meta).target!)
+      check json, 'internal_errors'
     end
   end
 end

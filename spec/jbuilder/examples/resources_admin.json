@@ -37,6 +37,9 @@
             }
           ]
         }
+      },
+      "meta": {
+        "blah": "Just another meta info for post #1"
       }
     },
     {
@@ -76,6 +79,9 @@
             }
           ]
         }
+      },
+      "meta": {
+        "blah": "Just another meta info for post #2"
       }
     }
   ],
