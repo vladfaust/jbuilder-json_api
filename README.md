@@ -28,6 +28,14 @@ Or install it yourself as:
 
 ## Usage
 
+**Firstly, read JSON API specifications: http://jsonapi.org/format/**
+
+The gem adds method `#api_format!(resources = nil, errors = nil, meta = nil, options = {})` to `Jbuilder` class and therefore to all its children, e.g. `JbuilderTemplate`. Possible arguments are:
+- `resources` goes for a collection of objects, e.g. array of Articles. It can also be a single object or just an empty array;
+- `errors` goes for a collection of errors. It **must** be an array of hashes;
+- `meta` is any hash representing some additional request-level information;
+- `options` can be any object. It will be passed to resources while the method is being executed.
+
 Replace any content within any `*.json.jbuilder` file with the code below:
 ```ruby
 # Common example
