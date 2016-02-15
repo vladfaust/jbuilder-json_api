@@ -1,12 +1,14 @@
-# Jbuilder::JsonApi | [![Build Status](https://travis-ci.org/vladfaust/jbuilder-json_api.svg?branch=master)](https://travis-ci.org/vladfaust/jbuilder-json_api) [![Code Climate](https://codeclimate.com/github/vladfaust/jbuilder-json_api/badges/gpa.svg)](https://codeclimate.com/github/vladfaust/jbuilder-json_api) [![Test Coverage](https://codeclimate.com/github/vladfaust/jbuilder-json_api/badges/coverage.svg)](https://codeclimate.com/github/vladfaust/jbuilder-json_api/coverage)
+# Jbuilder::JsonApi | [![Gem Version](https://badge.fury.io/rb/jbuilder-json_api.svg)](https://badge.fury.io/rb/jbuilder-json_api) ![](http://ruby-gem-downloads-badge.herokuapp.com/jbuilder-json_api?color=brightgreen) [![Build Status](https://travis-ci.org/vladfaust/jbuilder-json_api.svg?branch=master)](https://travis-ci.org/vladfaust/jbuilder-json_api) [![Dependency Status](https://gemnasium.com/vladfaust/jbuilder-json_api.svg)](https://gemnasium.com/vladfaust/jbuilder-json_api)
 
 Adds a `json.api_format!(resources)` method to quickly represent a resource or collection in a valid [JSON API](http://jsonapi.org/) format without any new superclasses or weird setups. Set'n'go! :rocket:
 
 ## Motivation
 
-Official JSON API [implementations page](http://jsonapi.org/implementations/#server-libraries-ruby) shows us a variety of different serializers and other heavy-weight stuff. I' in love with [Jbuilder](https://github.com/rails/jbuilder), as it allows to format json responses with ease. Therefore I wanted to connect Jbuilder and JsonApi.org specs.
+Official JSON API [implementations page](http://jsonapi.org/implementations/#server-libraries-ruby) shows us a variety of different serializers and other heavy-weight stuff. I'm in love with [Jbuilder](https://github.com/rails/jbuilder), as it allows to format json responses with ease. Therefore I wanted to connect Jbuilder and JsonApi.org specs.
 
 I'd like to notice that there already is one gem called [jbuilder-jsonapi](https://github.com/csexton/jbuilder-jsonapi) by [csexton](https://github.com/csexton), but it adds a links helper only. It's not enough for me! :facepunch:
+
+As a result, I've created a **very** lightweight & flexible solution - all you need is Jbuilder and this gem. Then you should delete everything within your `*.json.jbuilder` files and replace it with below recommendations (just one line! :flushed:). After you are free to customize parsed attributes and relationships with two tiny methods.
 
 ## Installation
 
