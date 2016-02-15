@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "status": 500,
+      "detail": "undefined method `id' for 42:Fixnum",
+      "title": "NoMethodError"
+    }
+  ]
+}
